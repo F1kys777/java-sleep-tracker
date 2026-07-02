@@ -12,4 +12,8 @@ public class SleepingSession {
         this.startTime = startTime;
         this.quality = quality;
     }
+
+    public Quality getQuality() {
+        return quality;
+    }
 }

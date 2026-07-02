@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class SleepTrackerApp {
@@ -16,6 +17,7 @@ public class SleepTrackerApp {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
         List<SleepingSession> sleepingSessions = new ArrayList<>();
         Scanner scan = new Scanner(System.in);
+        List<Function> functionList = new ArrayList<>();
 
         System.out.println("Введите путь к файлу sleep_log.txt");
         filePath = scan.next();
