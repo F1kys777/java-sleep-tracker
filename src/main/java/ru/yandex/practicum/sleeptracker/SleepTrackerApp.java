@@ -23,7 +23,7 @@ public class SleepTrackerApp {
         try (BufferedReader reader = new BufferedReader(
                 new FileReader(filePath, StandardCharsets.UTF_8))) {
             List<String> lines = reader.lines().toList();
-            List<SleepingSession> sessions = lines.stream()
+            sleepingSessions = lines.stream()
                     .map(line -> line.split(";"))
                     .filter(regexLine -> regexLine.length == 3)
                     .map(regexLine -> {
