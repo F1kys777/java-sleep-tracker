@@ -15,10 +15,10 @@ public class SleepTrackerApp {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
         List<SleepingSession> sleepingSessions = null;
 
-        String filePath = args[0];
+        String filePaths = args[0];
 
         try (BufferedReader reader = new BufferedReader(
-                new FileReader(filePath, StandardCharsets.UTF_8))) {
+                new FileReader(filePaths, StandardCharsets.UTF_8))) {
             List<String> lines = reader.lines().toList();
             sleepingSessions = lines.stream()
                     .map(line -> line.split(";"))
