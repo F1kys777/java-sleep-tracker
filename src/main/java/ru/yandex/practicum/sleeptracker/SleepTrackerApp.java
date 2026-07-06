@@ -16,15 +16,8 @@ public class SleepTrackerApp {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
         List<SleepingSession> sleepingSessions = null;
 
-        String filePath;
-        if (args.length == 0) {
-            System.out.println("Не указан путь к файлу лога. Пожалуйста, введите путь:");
-            Scanner scanner = new Scanner(System.in);
-            filePath = scanner.nextLine();
-            scanner.close();
-        } else {
-            filePath = args[0];
-        }
+        String filePath = args[0];
+        
 
         try (BufferedReader reader = new BufferedReader(
                 new FileReader(filePath, StandardCharsets.UTF_8))) {
