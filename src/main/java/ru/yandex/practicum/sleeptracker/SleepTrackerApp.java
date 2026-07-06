@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -17,7 +16,6 @@ public class SleepTrackerApp {
         List<SleepingSession> sleepingSessions = null;
 
         String filePath = args[0];
-        
 
         try (BufferedReader reader = new BufferedReader(
                 new FileReader(filePath, StandardCharsets.UTF_8))) {
