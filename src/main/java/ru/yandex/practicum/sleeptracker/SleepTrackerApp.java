@@ -13,14 +13,18 @@ import java.util.stream.Collectors;
 public class SleepTrackerApp {
 
     public static void main(String[] args) throws IOException {
-        String filePath;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
-        List<SleepingSession> sleepingSessions = new ArrayList<>();
-        Scanner scan = new Scanner(System.in);
-        List<Function> functionList = new ArrayList<>();
+        List<SleepingSession> sleepingSessions = null;
 
-        System.out.println("Введите путь к файлу sleep_log.txt");
-        filePath = scan.next();
+        String filePath;
+        if (args.length == 0) {
+            System.out.println("Не указан путь к файлу лога. Пожалуйста, введите путь:");
+            Scanner scanner = new Scanner(System.in);
+            filePath = scanner.nextLine();
+            scanner.close();
+        } else {
+            filePath = args[0];
+        }
 
         try (BufferedReader reader = new BufferedReader(
                 new FileReader(filePath, StandardCharsets.UTF_8))) {
@@ -40,9 +44,25 @@ public class SleepTrackerApp {
                         }
                     })
                     .filter(session -> session != null)
+
                     .collect(Collectors.toList());
         } catch (IOException e) {
             System.err.println("Ошибка чтения файла: " + e.getMessage());
         }
+
+        List<SleepingSession> sleepingSession = List.copyOf(sleepingSessions);
+
+        List<Function> functionList = new ArrayList<>();
+        functionList.add(new AllSessionsCount());
+        functionList.add(new MinDurationSessions());
+        functionList.add(new MaxDurationSessions());
+        functionList.add(new AverageDurationSessions());
+        functionList.add(new BadSessionCounter());
+        functionList.add(new SleeplessNights());
+        functionList.add(new UserType());
+
+        functionList.stream()
+                .map(f -> f.apply(sleepingSession))
+                .forEach(System.out::println);
     }
 }
