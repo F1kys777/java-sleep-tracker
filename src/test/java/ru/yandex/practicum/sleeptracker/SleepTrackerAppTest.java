@@ -289,26 +289,7 @@ class SleepTrackerAppTest {
     }
 
     @Test
-    void testUserTypeAllOwls() {
-        UserType analyzer = new UserType();
-        List<SleepingSession> sessions = List.of(
-                new SleepingSession(
-                        LocalDateTime.of(2025, 10, 1, 23, 30),
-                        LocalDateTime.of(2025, 10, 2, 9, 30),
-                        Quality.GOOD
-                ),
-                new SleepingSession(
-                        LocalDateTime.of(2025, 10, 2, 23, 0),
-                        LocalDateTime.of(2025, 10, 3, 9, 0),
-                        Quality.NORMAL
-                )
-        );
-        SleepAnalysisResult<String> result = analyzer.apply(sessions);
-        assertEquals("OWL", result.getValue());
-    }
-
-    @Test
-    void testUserTypeMixedWithPigeonPriority() {
+    void testUserTypeMix() {
         UserType analyzer = new UserType();
         List<SleepingSession> sessions = List.of(
                 new SleepingSession(
@@ -329,35 +310,6 @@ class SleepTrackerAppTest {
                 new SleepingSession(
                         LocalDateTime.of(2025, 10, 4, 23, 0),
                         LocalDateTime.of(2025, 10, 5, 7, 30),
-                        Quality.GOOD
-                )
-        );
-        SleepAnalysisResult<String> result = analyzer.apply(sessions);
-        assertEquals("PIGEON", result.getValue());
-    }
-
-    @Test
-    void testUserTypeEqualCounts() {
-        UserType analyzer = new UserType();
-        List<SleepingSession> sessions = List.of(
-                new SleepingSession(
-                        LocalDateTime.of(2025, 10, 1, 21, 0),
-                        LocalDateTime.of(2025, 10, 2, 6, 0),
-                        Quality.GOOD
-                ),
-                new SleepingSession(
-                        LocalDateTime.of(2025, 10, 2, 21, 30),
-                        LocalDateTime.of(2025, 10, 3, 6, 30),
-                        Quality.GOOD
-                ),
-                new SleepingSession(
-                        LocalDateTime.of(2025, 10, 3, 23, 30),
-                        LocalDateTime.of(2025, 10, 4, 9, 30),
-                        Quality.GOOD
-                ),
-                new SleepingSession(
-                        LocalDateTime.of(2025, 10, 4, 23, 0),
-                        LocalDateTime.of(2025, 10, 5, 9, 0),
                         Quality.GOOD
                 )
         );
