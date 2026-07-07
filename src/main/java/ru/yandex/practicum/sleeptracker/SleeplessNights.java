@@ -11,11 +11,12 @@ import java.util.stream.Stream;
 public class SleeplessNights implements Function<List<SleepingSession>, SleepAnalysisResult<Long>> {
     private static final LocalTime NIGHT_START = LocalTime.of(0, 0);
     private static final LocalTime NIGHT_END = LocalTime.of(6, 0);
+    private static final String DESCRIPTION = "Ночей без сна";
 
     @Override
     public SleepAnalysisResult<Long> apply(List<SleepingSession> sessions) {
         if (sessions.isEmpty()) {
-            return new SleepAnalysisResult<>("Ночей без сна", 0L);
+            return new SleepAnalysisResult<>(DESCRIPTION, 0L);
         }
 
         LocalDate firstDate = sessions.stream()
@@ -52,6 +53,6 @@ public class SleeplessNights implements Function<List<SleepingSession>, SleepAna
                 })
                 .count();
 
-        return new SleepAnalysisResult<>("Ночей без сна", sleeplessNights);
+        return new SleepAnalysisResult<>(DESCRIPTION, sleeplessNights);
     }
 }

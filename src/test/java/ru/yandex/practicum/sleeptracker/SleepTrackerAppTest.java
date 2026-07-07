@@ -265,8 +265,8 @@ class SleepTrackerAppTest {
     void testUserTypeEmpty() {
         UserType analyzer = new UserType();
         SleepAnalysisResult<String> result = analyzer.apply(List.of());
-        assertEquals("Недостаточно данных", result.getValue());
-        assertEquals("Классификация пользователя невозможна", result.getDescription());
+        assertEquals("Недостаточно данных для определения", result.getValue());
+        assertEquals("Хронотип", result.getDescription());
     }
 
     @Test

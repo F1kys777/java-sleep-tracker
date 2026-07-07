@@ -18,11 +18,12 @@ public class UserType implements Function<List<SleepingSession>, SleepAnalysisRe
     private static final LocalTime OWL_WAKE_END = LocalTime.of(9, 0);
     private static final LocalTime LARK_SLEEP_END = LocalTime.of(22, 0);
     private static final LocalTime LARK_WAKE_END = LocalTime.of(7, 0);
+    private static final String DESCRIPTION = "Хронотип";
 
     @Override
     public SleepAnalysisResult<String> apply(List<SleepingSession> sessions) {
         if (sessions.isEmpty()) {
-            return new SleepAnalysisResult<>("Классификация пользователя невозможна", "Недостаточно данных");
+            return new SleepAnalysisResult<>(DESCRIPTION, "Недостаточно данных для определения");
         }
 
         LocalDate firstDate = sessions.stream()
@@ -82,13 +83,13 @@ public class UserType implements Function<List<SleepingSession>, SleepAnalysisRe
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
         if (counts.isEmpty()) {
-            return new SleepAnalysisResult<>("Хронотип", "Недостаточно данных");
+            return new SleepAnalysisResult<>(DESCRIPTION, "Недостаточно данных");
         }
 
         Type result = counts.entrySet().stream()
                 .max((e1, e2) -> {
-                    int reslt = Long.compare(e1.getValue(), e2.getValue());
-                    if (reslt != 0) return reslt;
+                    int res = Long.compare(e1.getValue(), e2.getValue());
+                    if (res != 0) return res;
                     if (e1.getKey() == Type.PIGEON) return 1;
                     if (e2.getKey() == Type.PIGEON) return -1;
                     return 0;
@@ -96,7 +97,7 @@ public class UserType implements Function<List<SleepingSession>, SleepAnalysisRe
                 .map(Map.Entry::getKey)
                 .orElse(Type.PIGEON);
 
-        return new SleepAnalysisResult<>("Хронотип", result.toString());
+        return new SleepAnalysisResult<>(DESCRIPTION, result.toString());
     }
 
     private Type classifyType(LocalTime sleepStart, LocalTime wakeEnd) {
